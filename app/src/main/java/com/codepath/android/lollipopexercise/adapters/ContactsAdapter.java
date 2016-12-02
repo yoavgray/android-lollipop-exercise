@@ -16,7 +16,7 @@ import com.squareup.picasso.Picasso;
 import java.util.List;
 
 // Provide the underlying view for an individual list item.
-public class ContactsAdapter extends RecyclerView.Adapter<ContactsAdapter.VH> {
+public class ContactsAdapter extends RecyclerView.Adapter<ContactsAdapter.ContactViewHolder> {
     private Activity mContext;
     private List<Contact> mContacts;
 
@@ -30,14 +30,14 @@ public class ContactsAdapter extends RecyclerView.Adapter<ContactsAdapter.VH> {
 
     // Inflate the view based on the viewType provided.
     @Override
-    public VH onCreateViewHolder(ViewGroup parent, int viewType) {
+    public ContactViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View itemView = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_contact, parent, false);
-        return new VH(itemView, mContext);
+        return new ContactViewHolder(itemView, mContext);
     }
 
     // Display data at the specified position
     @Override
-    public void onBindViewHolder(VH holder, int position) {
+    public void onBindViewHolder(ContactViewHolder holder, int position) {
         Contact contact = mContacts.get(position);
         holder.rootView.setTag(contact);
         holder.tvName.setText(contact.getName());
@@ -50,13 +50,13 @@ public class ContactsAdapter extends RecyclerView.Adapter<ContactsAdapter.VH> {
     }
 
     // Provide a reference to the views for each contact item
-    public final static class VH extends RecyclerView.ViewHolder {
+    public final static class ContactViewHolder extends RecyclerView.ViewHolder {
         final View rootView;
         final ImageView ivProfile;
         final TextView tvName;
         final View vPalette;
 
-        public VH(View itemView, final Context context) {
+        public ContactViewHolder(View itemView, final Context context) {
             super(itemView);
             rootView = itemView;
             ivProfile = (ImageView)itemView.findViewById(R.id.ivProfile);
